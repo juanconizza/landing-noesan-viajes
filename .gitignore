@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Development tools
+package.json
+package-lock.json
+nodemon.json
+
+# Editor files
+.vscode/
+.DS_Store
+
+# Logs
+*.log
