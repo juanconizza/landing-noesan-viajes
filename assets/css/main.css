@@ -13,6 +13,7 @@
   --default-color: #051e23; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #1c4b56; /* Color for headings, subheadings and title throughout the website */
   --accent-color: #ff7083; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color-primary: #ab4552;
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -160,7 +161,7 @@ h6 {
 /* Global Header on Scroll
 ------------------------------*/
 .scrolled .header {
-  --surface-color: rgba(0, 0, 0, 0.7);
+  --surface-color: var(var(--surface-color-primary))
 }
 
 /*--------------------------------------------------------------
@@ -708,20 +709,19 @@ section,
 --------------------------------------------------------------*/
 .section-title {
   text-align: center;
-  padding-bottom: 60px;
+  padding-bottom: 0px;
   position: relative;
 }
 
 .section-title h2 {
-  font-size: 13px;
+  font-size: 17px;
   letter-spacing: 1px;
-  font-weight: 700;
+  font-weight: 500;
   padding: 8px 20px;
   margin: 0;
-  background: color-mix(in srgb, var(--accent-color), transparent 90%);
-  color: var(--accent-color);
-  display: inline-block;
-  text-transform: uppercase;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  display: inline-block;  
   border-radius: 50px;
   font-family: var(--default-font);
 }
@@ -3130,14 +3130,15 @@ section,
 }
 
 .travel-destination-details .destination-overview h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 10px;
+  color: var(--surface-color-primary)
 }
 
 .travel-destination-details .destination-overview p {
   font-size: 1.1rem;
-  line-height: 1.8;
+  line-height: 1.4;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
 }
 
@@ -3394,10 +3395,6 @@ section,
   font-size: 0.95rem;
 }
 
-.travel-destination-details .practical-info {
-  margin-bottom: 80px;
-}
-
 .travel-destination-details .practical-info .section-header {
   text-align: center;
   margin-bottom: 50px;
@@ -3459,9 +3456,9 @@ section,
 
 .travel-destination-details .practical-info .travel-tips {
   background: var(--surface-color);
-  padding: 40px;
+  padding: 20px;
   border-radius: 15px;
-  margin-top: 50px;
+  margin-top: 0px;
   box-shadow: 0 5px 20px color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
@@ -3481,15 +3478,16 @@ section,
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  font-weight: 450;
   margin-bottom: 15px;
-  font-size: 0.95rem;
+  font-size: 1.3rem;
   line-height: 1.6;
 }
 
 .travel-destination-details .practical-info .travel-tips .tips-list li i {
   color: var(--accent-color);
-  margin-top: 3px;
-  font-size: 1.1rem;
+  margin-top: 0px;
+  font-size: 1.2rem;
 }
 
 .travel-destination-details .gallery-section {
@@ -3566,6 +3564,15 @@ section,
 @media (max-width: 768px) {
   .travel-destination-details .cta-section h2 {
     font-size: 2rem;
+  }
+
+  .travel-destination-details .practical-info .travel-tips .tips-list li {
+    font-size: 1rem;
+    
+  }
+
+  .travel-destination-details .practical-info .travel-tips .tips-list li i {
+    font-size: 1.1rem;
   }
 }
 
@@ -5190,12 +5197,22 @@ section,
 # Gallery Slider Section
 --------------------------------------------------------------*/
 .gallery-slider {
-  overflow: hidden;
+  overflow: hidden;  
+}
+
+.gallery-slider .video-testimonial img {
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease;
+  width: 50%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
 }
 
 .gallery-slider .gallery-container {
-  padding: 20px 0 40px;
+  padding: 0px 0 5px;
   position: relative;
+  text-align: center;
 }
 
 .gallery-slider .swiper-wrapper {
@@ -5325,6 +5342,11 @@ section,
   .gallery-slider .gallery-img .gallery-overlay i {
     font-size: 2rem;
   }
+
+  .gallery-slider .video-testimonial img {  
+  width: 100%;
+  
+}
 }
 
 /*--------------------------------------------------------------
