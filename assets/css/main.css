@@ -947,8 +947,7 @@ section,
 
 .why-us .stats-row {
   display: flex;
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 2rem;  
 }
 
 @media (max-width: 576px) {
@@ -971,8 +970,15 @@ section,
   margin-top: 0.25rem;
 }
 
+.why-us .about-image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .why-us .about-image {
   position: relative;
+  width: 50%;  
 }
 
 .why-us .about-image .experience-badge {
@@ -1000,8 +1006,8 @@ section,
 }
 
 @media (max-width: 768px) {
-  .why-us .about-image {
-    margin-top: 3rem;
+  .why-us .about-image {    
+    width: 100%;
   }
 
   .why-us .about-image .experience-badge {
@@ -1020,14 +1026,19 @@ section,
 }
 
 .why-us .why-choose-section {
-  margin-top: 5rem;
-}
+    margin-top: 3rem;
+  }
 
 .why-us .why-choose-section h3 {
   font-size: 2.2rem;
-  font-weight: 700;
+  font-weight: 700;  
   margin-bottom: 1rem;
   line-height: 1.3;
+  color: var(--surface-color-primary);
+}
+
+.why-us .why-choose-section h3 span {  
+  color: var(--accent-color);
 }
 
 .why-us .why-choose-section>.row>.col-lg-8>p {
@@ -1038,7 +1049,7 @@ section,
 
 @media (max-width: 768px) {
   .why-us .why-choose-section {
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
 
   .why-us .why-choose-section h3 {
@@ -4246,7 +4257,7 @@ section,
 .travel-tour-details .tour-itinerary .itinerary-item .day-content h4 {
   font-size: 1.3rem;
   margin-bottom: 15px;
-  color: var(--heading-color);
+  color: var(--accent-color);
 }
 
 .travel-tour-details .tour-itinerary .itinerary-item .day-content p {
@@ -4274,7 +4285,7 @@ section,
 }
 
 .travel-tour-details .tour-inclusions {
-  margin-bottom: 60px;
+  margin-bottom: 5px;
 }
 
 .travel-tour-details .tour-inclusions h3 {
