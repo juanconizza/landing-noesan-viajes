@@ -31,7 +31,7 @@
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
 .light-background {
-  --background-color: #f2f8f9;
+  --background-color: #ff7083;
   --surface-color: #ffffff;
 }
 
@@ -1852,8 +1852,8 @@ section,
 
 .call-to-action .content-wrapper .badge-wrapper .promo-badge {
   display: inline-block;
-  background: linear-gradient(45deg, var(--accent-color), color-mix(in srgb, var(--accent-color), black 20%));
-  color: var(--contrast-color);
+  background: linear-gradient(45deg, var(--contrast-color), color-mix(in srgb, var(--contrast-color), black 10%));
+  color: var(--accent-color);
   padding: 8px 20px;
   border-radius: 25px;
   font-size: 0.9rem;
@@ -1876,6 +1876,7 @@ section,
 }
 
 .call-to-action .content-wrapper h2 {
+  color: var(--contrast-color);
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
@@ -1890,7 +1891,7 @@ section,
 
 .call-to-action .content-wrapper p {
   font-size: 1.2rem;
-  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  color: var(--contrast-color);
   margin-bottom: 2.5rem;
   line-height: 1.7;
 }
@@ -1904,12 +1905,13 @@ section,
 @media (max-width: 576px) {
   .call-to-action .action-section .main-actions {
     flex-direction: column;
+    margin-bottom: 0rem;
   }
 }
 
 .call-to-action .action-section .main-actions .btn {
   padding: 15px 35px;
-  font-size: 1.1rem;
+  font-size: 1.1rem;  
   font-weight: 700;
   border-radius: 60px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1942,7 +1944,7 @@ section,
 }
 
 .call-to-action .action-section .main-actions .btn.btn-explore {
-  background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), black 20%));
+  background: linear-gradient(135deg, var(--contrast-color), color-mix(in srgb, var(--contrast-color), black 20%));
   border: none;
   color: var(--contrast-color);
 }
@@ -1954,13 +1956,13 @@ section,
 
 .call-to-action .action-section .main-actions .btn.btn-deals {
   background: transparent;
-  border: 3px solid var(--accent-color);
-  color: var(--accent-color);
+  border: 3px solid var(--contrast-color);
+  color: var(--contrast-color);  
 }
 
 .call-to-action .action-section .main-actions .btn.btn-deals:hover {
-  background: var(--accent-color);
-  color: var(--contrast-color);
+  background: var(--contrast-color);
+  color: var(--accent-color);
   transform: translateY(-3px) scale(1.05);
 }
 
@@ -3116,7 +3118,7 @@ section,
   color: var(--contrast-color);
 }
 
-.travel-destination-details .destination-hero .hero-image .hero-content h1 {
+.travel-destination-details .destination-hero .hero-image .hero-content h2 {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 15px;
@@ -3124,14 +3126,14 @@ section,
 }
 
 @media (max-width: 768px) {
-  .travel-destination-details .destination-hero .hero-image .hero-content h1 {
+  .travel-destination-details .destination-hero .hero-image .hero-content h2 {
     font-size: 2.5rem;
   }
 }
 
 .travel-destination-details .destination-hero .hero-image .hero-content .hero-tagline {
   font-size: 1.2rem;
-  font-weight: 300;
+  font-weight: 600;
   opacity: 0.9;
 }
 
@@ -4350,7 +4352,7 @@ section,
 }
 
 .travel-tour-details .tour-pricing {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 
 .travel-tour-details .tour-pricing h2 {
@@ -4402,7 +4404,7 @@ section,
 }
 
 .travel-tour-details .tour-pricing .pricing-details {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .travel-tour-details .tour-pricing .pricing-details .price-type {
@@ -4481,6 +4483,10 @@ section,
 }
 
 @media (max-width: 768px) {
+  .travel-tour-details .tour-pricing .pricing-details .price-type {
+    margin-bottom: 20px;
+  }
+
   .travel-tour-details .booking-section .booking-card {
     padding: 25px;
   }
@@ -7315,22 +7321,20 @@ section,
   gap: 15px;
   border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
   padding-bottom: 15px;
+  justify-content: center;
 }
 
 .faq .faq-tabs .nav-pills .nav-link {
   background: transparent;
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
-  border-radius: 8px;
-  font-size: 16px;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);  
+  font-size: 35px;
   font-weight: 500;
   padding: 10px 25px;
   transition: all 0.3s ease;
 }
 
-.faq .faq-tabs .nav-pills .nav-link.active {
-  background-color: var(--accent-color);
-  color: var(--contrast-color);
-  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent-color), transparent 70%);
+.faq .faq-tabs .nav-pills .nav-link.active {  
+  color: var(--surface-color-primary);
 }
 
 .faq .faq-tabs .nav-pills .nav-link:hover:not(.active) {
@@ -7422,21 +7426,27 @@ section,
   }
 
   .faq .faq-tabs .nav-pills {
-    flex-wrap: wrap;
+    flex-wrap: wrap;    
   }
 
   .faq .faq-tabs .nav-pills .nav-item {
     flex: 1 0 30%;
+    justify-items: center;
   }
 
   .faq .faq-tabs .nav-pills .nav-link {
     text-align: center;
   }
+
+  .faq .faq-tabs .nav-pills .nav-link {   
+  font-size: 30px;  
+}
 }
 
 @media (max-width: 768px) {
   .faq .faq-tabs .nav-pills .nav-item {
     flex: 1 0 100%;
+    justify-content: center;
   }
 
   .faq .faq-item {
@@ -7452,6 +7462,10 @@ section,
     right: 20px;
     top: 20px;
   }
+  
+  .faq .faq-tabs .nav-pills .nav-link {   
+  font-size: 30px;  
+}
 }
 
 /*--------------------------------------------------------------
