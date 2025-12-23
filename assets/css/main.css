@@ -5226,6 +5226,30 @@ section,
   object-fit: cover;
 }
 
+/* Custom GLightbox video adjustments for mobile */
+@media (max-width: 768px) {
+  .glightbox-container .ginner-container.gvideo-container {
+    width: 95vw !important;
+    height: 85vh !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+  
+  .gslide-video .gvideo-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+  }
+  
+  .gslide iframe,
+  .gslide video {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+}
+
 .gallery-slider .gallery-container {
   padding: 0px 0 5px;
   position: relative;
@@ -5339,6 +5363,7 @@ section,
   background: var(--accent-color);
   color: var(--contrast-color);
 }
+
 
 @media (max-width: 991px) {
   .gallery-slider .gallery-item {

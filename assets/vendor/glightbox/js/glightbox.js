@@ -2880,6 +2880,15 @@
         }
         if (video) {
           var ratio = has(this.settings.plyr.config, 'ratio') ? this.settings.plyr.config.ratio : '';
+          
+          // Dynamic ratio adjustment for mobile devices
+          var isMobile = window.innerWidth <= 768;
+          if (isMobile && ratio === '16:9') {
+            ratio = '9:16';
+          } else if (!isMobile && ratio === '9:16') {
+            ratio = '16:9';
+          }
+          
           if (!ratio) {
             var containerWidth = video.clientWidth;
             var containerHeight = video.clientHeight;

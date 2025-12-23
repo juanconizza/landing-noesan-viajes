@@ -71,27 +71,6 @@
   }
 
   /**
-   * Scroll top button
-   */
-  let scrollTop = document.querySelector('.scroll-top');
-
-  function toggleScrollTop() {
-    if (scrollTop) {
-      window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
-    }
-  }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-
-  window.addEventListener('load', toggleScrollTop);
-  document.addEventListener('scroll', toggleScrollTop);
-
-  /**
    * Animation on scroll function and init
    */
   function aosInit() {
@@ -132,7 +111,49 @@
    * Initiate glightbox
    */
   const glightbox = GLightbox({
-    selector: '.glightbox'
+    selector: '.glightbox',
+    videosWidth: window.innerWidth <= 768 ? '95vw' : '900px',
+    plyr: {
+      config: {
+        ratio: window.innerWidth <= 768 ? '9:16' : '16:9',
+        fullscreen: {
+          enabled: true,
+          iosNative: true
+        },
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+        hideControls: true,
+        resetOnEnd: true,
+        autoplay: true,
+        muted: true,
+        playsinline: true
+      }
+    },
+    onOpen: function() {
+      // Force recalculation of video size when lightbox opens
+      setTimeout(function() {
+        window.dispatchEvent(new Event('resize'));
+      }, 100);
+      
+      // Try to trigger autoplay on mobile after a brief delay
+      setTimeout(function() {
+        const video = document.querySelector('.glightbox-container iframe, .glightbox-container video');
+        if (video && window.innerWidth <= 768) {
+          // For iframes (Vimeo), try to send autoplay command
+          if (video.tagName === 'IFRAME') {
+            try {
+              video.contentWindow.postMessage('{"method":"play"}', '*');
+            } catch(e) {
+              console.log('Autoplay attempt for iframe');
+            }
+          }
+          // For direct video elements
+          else if (video.tagName === 'VIDEO') {
+            video.muted = true;
+            video.play().catch(e => console.log('Autoplay prevented by browser'));
+          }
+        }
+      }, 500);
+    }
   });
 
   /**
