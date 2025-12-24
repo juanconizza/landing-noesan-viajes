@@ -93,14 +93,25 @@
    */
   function initSwiper() {
     document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
-      let config = JSON.parse(
-        swiperElement.querySelector(".swiper-config").innerHTML.trim()
-      );
-
-      if (swiperElement.classList.contains("swiper-tab")) {
-        initSwiperWithCustomPagination(swiperElement, config);
-      } else {
+      // Verificar que el elemento sea válido
+      if (!swiperElement || !swiperElement.querySelector) {
+        console.warn('Elemento Swiper inválido:', swiperElement);
+        return;
+      }
+      
+      const configElement = swiperElement.querySelector(".swiper-config");
+      if (!configElement) {
+        console.warn('No se encontró elemento .swiper-config en:', swiperElement);
+        return;
+      }
+      
+      try {
+        let config = JSON.parse(configElement.innerHTML.trim());
+        
+        // Inicializar Swiper directamente (removiendo la referencia a función no definida)
         new Swiper(swiperElement, config);
+      } catch (error) {
+        console.error('Error al inicializar Swiper:', error, swiperElement);
       }
     });
   }

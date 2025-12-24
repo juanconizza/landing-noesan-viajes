@@ -1,0 +1,22 @@
+# robots.txt para NoeSan Viajes - Miami Women Trip
+# Este archivo indica a los motores de búsqueda cómo rastrear este sitio
+
+User-agent: *
+Allow: /
+
+# Permitir acceso a archivos CSS y JS para mejor indexación
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/img/
+
+# Bloquear archivos que no deben ser indexados
+Disallow: /forms/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /package.json
+Disallow: /README.md
+Disallow: /purgecss.config.js
+Disallow: /nodemon.json
+
+# Crawl-delay para ser amigable con los servidores
+Crawl-delay: 1
