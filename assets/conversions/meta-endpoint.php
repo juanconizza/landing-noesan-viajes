@@ -29,6 +29,29 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $metaPixelId = '2283474082174153';
 $metaAccessToken = 'EAAaKpZArkem4BQQdwYb2gBlWb3Nqgkb44T3F6CF36C3ZAfNuJMyi08gOVHRCUuHLLCv11FAozLZBfP0B2rgEjbvdsmi12WlCnSW6pLFshJgWTbYbA8MYb4MTaLOVmuKnFZBQqrJIaFtGbvdUxXVT25ksY0lPGucqw0AoZAzcLyZCjRIM4ztJTAS9NYhygmzwZDZD';
 
+// Configuración de mapeo de eventos
+// eventDetails.name => Meta Event Configuration
+$eventMappings = [
+    'Potencial Cliente' => [
+        'meta_event' => 'Lead',
+        'description' => 'Usuario interesado en servicios',
+        'custom_data' => [
+            'content_category' => 'lead_generation',
+            'lead_type' => 'potential_client'
+        ]
+    ],
+    'Cliente' => [
+        'meta_event' => 'Purchase',
+        'description' => 'Cliente que realizó una compra',
+        'value' => 0.00,
+        'currency' => 'USD',
+        'custom_data' => [
+            'content_category' => 'purchase',
+            'product_type' => 'travel_package'
+        ]
+    ],
+];
+
 // Configuración del log
 $logDir = __DIR__ . '/logs';
 $logFile = $logDir . '/meta-endpoint-' . date('Y-m-d') . '.log';
@@ -96,12 +119,34 @@ try {
     if ($webhookData) {
         $eventDetails = $webhookData['eventDetails'];
         
-        // Verificar que el tipo sea "NewUser" y el nombre sea "Potencial Cliente"
-        if (isset($eventDetails['type']) && $eventDetails['type'] === 'NewUser' &&
-            isset($eventDetails['name']) && $eventDetails['name'] === 'Potencial Cliente') {
+        // Verificar que el tipo sea "NewUser"
+        if (isset($eventDetails['type']) && $eventDetails['type'] === 'NewUser') {
+            
+            // Buscar el mapeo del evento basado en el nombre
+            $eventName = $eventDetails['name'] ?? 'unknown';
+            $eventMapping = null;
+            
+            // Buscar mapeo exacto
+            if (isset($eventMappings[$eventName])) {
+                $eventMapping = $eventMappings[$eventName];
+            } else {
+                // Log de evento no mapeado
+                $logEntry['webhook_processing'] = 'unmapped_event';
+                $logEntry['unmapped_event'] = [
+                    'received_name' => $eventName,
+                    'available_mappings' => array_keys($eventMappings)
+                ];
+                file_put_contents($logFile, "=== UNMAPPED EVENT ===\n" . json_encode($logEntry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n\n", FILE_APPEND | LOCK_EX);
+                throw new Exception("Evento no mapeado: '{$eventName}'. Eventos disponibles: " . implode(', ', array_keys($eventMappings)));
+            }
             
             // Log del procesamiento exitoso
             $logEntry['webhook_processing'] = 'success';
+            $logEntry['event_mapping'] = [
+                'input_event_name' => $eventName,
+                'meta_event' => $eventMapping['meta_event'],
+                'description' => $eventMapping['description']
+            ];
             $logEntry['contact_data'] = [
                 'name' => $webhookData['name'] ?? 'unknown',
                 'number' => $webhookData['number'] ?? 'unknown'
@@ -112,26 +157,38 @@ try {
                 throw new Exception('Faltan datos del contacto (name o number)');
             }
             
-            // Procesar como evento Lead
+            // Construir custom_data combinando el mapeo y datos del webhook
+            $customData = $eventMapping['custom_data'] ?? [];
+            $customData = array_merge($customData, [
+                'lead_source' => 'crm_webhook',
+                'original_event_type' => $eventDetails['type'],
+                'original_event_name' => $eventDetails['name'],
+                'unread_messages' => $webhookData['unreadMessages'] ?? 0,
+                'last_message' => $webhookData['lastMessage']['text'] ?? '',
+                'message_type' => $webhookData['lastMessage']['type'] ?? '',
+                'webhook_format' => $logEntry['webhook_format']
+            ]);
+            
+            // Procesar como evento mapeado
             $processedData = [
-                'event_name' => 'Lead',
+                'event_name' => $eventMapping['meta_event'],
                 'event_time' => isset($webhookData['lastMessage']['timestamp']) 
                     ? $webhookData['lastMessage']['timestamp'] 
                     : time(),
-                'event_id' => isset($eventDetails['id']) ? $eventDetails['id'] : uniqid('lead_', true),
+                'event_id' => isset($eventDetails['id']) ? $eventDetails['id'] : uniqid('event_', true),
                 'first_name' => $webhookData['name'],
                 'phone' => $webhookData['number'],
                 'source_url' => 'webhook_crm',
-                'custom_data' => [
-                    'lead_source' => 'crm_webhook',
-                    'event_type' => $eventDetails['type'],
-                    'event_name_detail' => $eventDetails['name'],
-                    'unread_messages' => $webhookData['unreadMessages'] ?? 0,
-                    'last_message' => $webhookData['lastMessage']['text'] ?? '',
-                    'message_type' => $webhookData['lastMessage']['type'] ?? '',
-                    'webhook_format' => $logEntry['webhook_format']
-                ]
+                'custom_data' => $customData
             ];
+            
+            // Agregar valor y moneda si están definidos en el mapeo
+            if (isset($eventMapping['value'])) {
+                $processedData['value'] = $eventMapping['value'];
+            }
+            if (isset($eventMapping['currency'])) {
+                $processedData['currency'] = $eventMapping['currency'];
+            }
             
             // Usar los datos procesados
             $data = $processedData;
@@ -141,11 +198,10 @@ try {
             $logEntry['rejection_reason'] = [
                 'expected_type' => 'NewUser',
                 'received_type' => $eventDetails['type'] ?? 'unknown',
-                'expected_name' => 'Potencial Cliente',
-                'received_name' => $eventDetails['name'] ?? 'unknown'
+                'note' => 'Solo se procesan eventos con type: NewUser'
             ];
             file_put_contents($logFile, "=== WEBHOOK REJECTED ===\n" . json_encode($logEntry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n\n", FILE_APPEND | LOCK_EX);
-            throw new Exception('El webhook no cumple con los criterios requeridos (type: NewUser, name: Potencial Cliente)');
+            throw new Exception('El webhook no cumple con los criterios requeridos (type debe ser: NewUser)');
         }
     }
     
@@ -260,8 +316,15 @@ try {
         ];
         $response['original_event'] = [
             'id' => $processedData['event_id'],
-            'type' => $processedData['custom_data']['event_type'],
-            'name' => $processedData['custom_data']['event_name_detail']
+            'type' => $processedData['custom_data']['original_event_type'] ?? 'unknown',
+            'name' => $processedData['custom_data']['original_event_name'] ?? 'unknown'
+        ];
+        $response['event_mapping'] = [
+            'input_event' => $processedData['custom_data']['original_event_name'] ?? 'unknown',
+            'meta_event' => $processedData['event_name'],
+            'has_value' => isset($processedData['value']),
+            'value' => $processedData['value'] ?? null,
+            'currency' => $processedData['currency'] ?? null
         ];
     }
     
@@ -344,8 +407,21 @@ function sendMetaConversion($pixelId, $accessToken, $eventName, $eventTime, $eve
     }
     
     if ($httpCode >= 400) {
-        error_log("Meta CAPI HTTP Error: " . $httpCode . " - " . $response);
-        throw new Exception("Error HTTP de Meta API: " . $httpCode);
+        // Log detallado del error de Meta
+        $errorDetails = [
+            'http_code' => $httpCode,
+            'meta_response' => $response,
+            'sent_payload' => $payload,
+            'timestamp' => date('Y-m-d H:i:s')
+        ];
+        error_log("Meta CAPI HTTP Error: " . $httpCode . " - " . $response . " - Payload: " . json_encode($payload));
+        
+        // Log al archivo también
+        $logDir = __DIR__ . '/logs';
+        $errorLogFile = $logDir . '/meta-api-errors-' . date('Y-m-d') . '.log';
+        file_put_contents($errorLogFile, "=== META API ERROR ===\n" . json_encode($errorDetails, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n\n", FILE_APPEND | LOCK_EX);
+        
+        throw new Exception("Error HTTP de Meta API: " . $httpCode . " - Respuesta: " . $response);
     }
     
     return $response;
