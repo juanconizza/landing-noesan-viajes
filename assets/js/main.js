@@ -215,25 +215,4 @@
     });
   });
 
-  // Meta and Google Ads Conversion Tracking Whatsapp Button
-  
-    document.addEventListener('DOMContentLoaded', function() {
-      const buttons = document.querySelectorAll('#whatsapp-button, #cupos-limitados-button');
-      buttons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        // gtag('event', 'conversion', {
-        // 'send_to': 'AW-17032329907/3nC_CL_IiL8aELP10rk_',
-        // 'event_callback': function() {
-        //   window.open('https://api.whatsapp.com/send?phone=+5493516217424&text=Hola!%20Quiero%20informaci%C3%B3n%20del%20Miami%20Women%20Trip...', '_blank');
-        // }
-        // });
-        // Fallback in case callback doesn't fire
-        setTimeout(function() {
-        window.open('https://api.whatsapp.com/send?phone=+5493516217424&text=Hola!%20Quiero%20informaci%C3%B3n%20del%20Miami%20Women%20Trip...', '_blank');
-        }, 500);
-      });
-      });
-    });
-  
 })();

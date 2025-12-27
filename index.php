@@ -26,6 +26,24 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet"> 
+
+  <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2283474082174153');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 
 <body class="index-page">
@@ -36,7 +54,7 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">        
         <img src="assets/img/noesan-viajes-logo.webp" alt="NoeSan Viajes Logo " width="auto" height="36">        
       </a>
-      <a class="btn-getstarted" id="cupos-limitados-button" href="#">Cupos Limitados</a>
+      <a class="btn-getstarted" id="cupos-limitados-button" href="assets/conversions/meta-conversion.php">Cupos Limitados</a>
 
     </div>
   </header>
@@ -65,8 +83,8 @@
               <h1 class="hero-title">Desconectá.<br class="d-lg-none"> Descubrí. Conectá<br class="d-lg-none"> con vos misma.</h1>
               <p class="hero-subtitle">Un viaje exclusivo para mujeres. <span>Tercer edición.</span> Acompañado, seguro y diseñado para disfrutar sin límites.</p>
               <div class="hero-buttons">
-                <a href="#" class="btn btn-primary me-3">Deseo Info Completa</a>
-                <a href="#" class="btn btn-outline">Chatear con una Asesora</a>
+                <a href="assets/conversions/meta-conversion.php" class="btn btn-primary me-3" id="deseo-info-completa">Deseo Info Completa</a>
+                <a href="assets/conversions/meta-conversion.php" class="btn btn-outline" id="chatear-asesora">Chatear con una Asesora</a>
               </div>
             </div>
           </div>            
@@ -157,7 +175,7 @@
         <!-- Video Testimonial Container -->
          <div class="gallery-container">
           <div class="video-testimonial" data-aos="fade-up" data-aos-delay="200">
-            <a href="https://vimeo.com/1149023007?autoplay=1&playsinline=1" class="glightbox video-link">              
+            <a href="https://vimeo.com/1149023007?autoplay=1&playsinline=1" class="glightbox video-link" id="video-testimonios">              
               <img src="assets/img/video-portada.jpg" alt="Video Testimonial" class="img-fluid rounded-4" width="600" height="400">
             </a>
           </div>
@@ -478,8 +496,8 @@
             <div class="col-lg-8 mx-auto text-center">
               <h2>Un viaje pensado por mujeres, para mujeres.</h2>              
               <div class="cta-buttons">
-                <a href="#" class="btn btn-outline">Ver itinerario completo</a>
-                <a href="#" class="btn btn-primary">¡Reservar mi lugar!</a>
+                <a href="assets/conversions/meta-conversion.php" class="btn btn-outline" id="ver-itinerario-completo">Ver itinerario completo</a>
+                <a href="assets/conversions/meta-conversion.php" class="btn btn-primary" id="reservar-mi-lugar">¡Reservar mi lugar!</a>
               </div>
             </div>
           </div>
@@ -565,7 +583,7 @@
 
             <div class="action-section">
               <div class="main-actions">                
-                <a href="#" class="btn btn-deals">                  
+                <a href="assets/conversions/meta-conversion.php" class="btn btn-deals" id="lo-quiero-deseo-mas-info">                  
                   Lo quiero! Deseo más info
                 </a>
               </div>
@@ -718,7 +736,7 @@
           <div class="col-lg-8 mx-auto text-center">
             <h2>Este es tu momento. <br>Regalate esta experiencia única.</h2>              
             <div class="cta-buttons">
-              <a href="#" class="btn btn-primary">¡Quiero reservar mi lugar!</a>                
+              <a href="assets/conversions/meta-conversion.php" class="btn btn-primary" id="quiero-reservar-mi-lugar">¡Quiero reservar mi lugar!</a>                
             </div>
           </div>
             </div>
@@ -732,8 +750,7 @@
     
     <!-- Whatsapp Button -->
      <a id="whatsapp-button" class="whatsapp-button"
-    href="https://api.whatsapp.com/send?phone=+5493516002642&text=Hola.%20Vi%20su%20anuncio%20en%20Google%20y%20me%20gustar%C3%ADa%20contactar%20con%20Uds.%20lo%20antes%20posible."
-    target="_blank">
+    href="assets/conversions/meta-conversion.php">
     <img src="assets/img/whatsapp-logo.svg" alt="WhatsApp" loading="lazy" width="60" height="60">
   </a>
 
