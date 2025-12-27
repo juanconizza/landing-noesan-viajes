@@ -15,20 +15,59 @@ function sendConversionsAndRedirect() {
     $eventTime = time();
     $eventId = uniqid('event_', true);
     
-    // Get Facebook Browser ID (fbp) and Facebook Click ID (fbc) from cookies
-    $fbp = $_COOKIE['_fbp'] ?? null;
-    $fbc = $_COOKIE['_fbc'] ?? null;
-    
-    // If fbc is not in cookie, try to get it from URL parameter
-    if (!$fbc && isset($_GET['fbclid'])) {
-        $fbc = 'fb.1.' . time() . '.' . $_GET['fbclid'];
-    }
+    // Get Facebook tracking parameters
+    list($fbp, $fbc) = getFacebookTrackingParams();
     
     // Send Meta Conversions API Event
     sendMetaConversion($metaPixelId, $metaAccessToken, $clientIpAddress, $clientUserAgent, $eventTime, $eventId, $fbp, $fbc);
     
     // Redirect to WhatsApp with Meta Pixel tracking
     redirectToWhatsApp($whatsappUrl, $eventId);
+}
+
+function getFacebookTrackingParams() {
+    // Get Facebook Browser ID (fbp) from cookie
+    $fbp = $_COOKIE['_fbp'] ?? null;
+    
+    // Get Facebook Click ID (fbc) from multiple sources
+    $fbc = $_COOKIE['_fbc'] ?? null;
+    
+    // If fbc is not in cookie, check URL parameters
+    if (!$fbc) {
+        // Check for fbclid in URL
+        if (isset($_GET['fbclid']) && !empty($_GET['fbclid'])) {
+            // Create fbc with format: fb.1.{timestamp}.{fbclid}
+            $timestamp = time();
+            $fbc = 'fb.1.' . $timestamp . '.' . $_GET['fbclid'];
+        }
+        // Also check for gclid (Google Click ID) which Meta can also use
+        elseif (isset($_GET['gclid']) && !empty($_GET['gclid'])) {
+            $timestamp = time();
+            $fbc = 'fb.1.' . $timestamp . '.' . $_GET['gclid'];
+        }
+    }
+    
+    // Validate fbc format
+    if ($fbc && !preg_match('/^fb\.\d+\.\d+\..*/', $fbc)) {
+        error_log("WARNING: fbc format might be invalid: " . $fbc);
+    }
+    
+    // Log the values for debugging
+    $logFile = __DIR__ . '/logs/debug.log';
+    $logMessage = date('Y-m-d H:i:s') . " - ";
+    file_put_contents($logFile, $logMessage . "fbp: " . ($fbp ?: 'null') . "\n", FILE_APPEND);
+    file_put_contents($logFile, $logMessage . "fbc: " . ($fbc ?: 'null') . "\n", FILE_APPEND);
+    file_put_contents($logFile, $logMessage . "fbclid from URL: " . ($_GET['fbclid'] ?? 'null') . "\n", FILE_APPEND);
+    file_put_contents($logFile, $logMessage . "gclid from URL: " . ($_GET['gclid'] ?? 'null') . "\n", FILE_APPEND);
+    file_put_contents($logFile, "---\n", FILE_APPEND);
+    
+    // Also log to error_log as backup
+    error_log("DEBUG - fbp: " . ($fbp ?: 'null'));
+    error_log("DEBUG - fbc: " . ($fbc ?: 'null'));
+    error_log("DEBUG - fbclid from URL: " . ($_GET['fbclid'] ?? 'null'));
+    error_log("DEBUG - gclid from URL: " . ($_GET['gclid'] ?? 'null'));
+    
+    return [$fbp, $fbc];
 }
 
 function sendMetaConversion($pixelId, $accessToken, $ipAddress, $userAgent, $eventTime, $eventId, $fbp = null, $fbc = null) {
@@ -77,8 +116,20 @@ function sendMetaConversion($pixelId, $accessToken, $ipAddress, $userAgent, $eve
     curl_close($ch);
     
     // Log response for debugging (optional)
+    $logFile = __DIR__ . '/logs/debug.log';
+    $logMessage = date('Y-m-d H:i:s') . " - ";
+    
     if ($error) {
         error_log("Meta CAPI Error: " . $error);
+        file_put_contents($logFile, $logMessage . "CAPI Error: " . $error . "\n", FILE_APPEND);
+    } else {
+        // Log successful response and the data sent
+        error_log("Meta CAPI Response: " . $response);
+        error_log("Meta CAPI Data sent: " . json_encode($eventData));
+        
+        file_put_contents($logFile, $logMessage . "CAPI Response: " . $response . "\n", FILE_APPEND);
+        file_put_contents($logFile, $logMessage . "CAPI Data sent: " . json_encode($eventData) . "\n", FILE_APPEND);
+        file_put_contents($logFile, "===========================\n", FILE_APPEND);
     }
     
     return $response;
