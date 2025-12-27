@@ -53,7 +53,7 @@ function sendMetaConversion($pixelId, $accessToken, $ipAddress, $userAgent, $eve
     $eventData = [
         'data' => [
             [
-                'event_name' => 'Lead',
+                'event_name' => 'Contact',
                 'event_time' => $eventTime,
                 'event_id' => $eventId,
                 'event_source_url' => $_SERVER['HTTP_REFERER'] ?? '',
@@ -107,8 +107,8 @@ function redirectToWhatsApp($redirectUrl, $eventId) {
         fbq('init', '<?php echo $metaPixelId; ?>');
         fbq('track', 'PageView');
         
-        // Track Lead event with same event ID for deduplication
-        fbq('track', 'Lead', {}, {
+        // Track Contact event with same event ID for deduplication
+        fbq('track', 'Contact', {}, {
             eventID: '<?php echo $eventId; ?>'
         });
         
