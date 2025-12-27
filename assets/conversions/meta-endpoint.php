@@ -34,7 +34,7 @@ $metaAccessToken = 'EAAaKpZArkem4BQQdwYb2gBlWb3Nqgkb44T3F6CF36C3ZAfNuJMyi08gOVHR
 $eventMappings = [
     'Potencial Cliente' => [
         'meta_event' => 'Lead',
-        'description' => 'Usuario interesado en servicios',
+        'description' => 'Usuario potencial interesado en un viaje',
         'custom_data' => [
             'content_category' => 'lead_generation',
             'lead_type' => 'potential_client'
@@ -42,8 +42,7 @@ $eventMappings = [
     ],
     'Cliente' => [
         'meta_event' => 'Purchase',
-        'description' => 'Cliente que realizó una compra',
-        'value' => 0.00,
+        'description' => 'Cliente que realizó una compra de un viaje',
         'currency' => 'USD',
         'custom_data' => [
             'content_category' => 'purchase',
@@ -182,10 +181,57 @@ try {
                 'custom_data' => $customData
             ];
             
-            // Agregar valor y moneda si están definidos en el mapeo
-            if (isset($eventMapping['value'])) {
-                $processedData['value'] = $eventMapping['value'];
+            // Para eventos Purchase, extraer el valor del negocio del webhook
+            if ($eventMapping['meta_event'] === 'Purchase') {
+                // Buscar el valor en los campos específicos del CRM
+                $businessValue = 0; // Valor por defecto
+                $valueSource = 'default_zero';
+                
+                // Prioridad 1: perfilContato.valorNegocioTotal (formato: "R$ 1.000,00")
+                if (isset($webhookData['perfilContato']['valorNegocioTotal'])) {
+                    $valorTotal = $webhookData['perfilContato']['valorNegocioTotal'];
+                    // Extraer solo números y punto decimal del formato "R$ 1.000,00"
+                    $valorLimpio = preg_replace('/[^0-9,]/', '', $valorTotal);
+                    // Convertir coma a punto para formato decimal
+                    $valorLimpio = str_replace(',', '.', $valorLimpio);
+                    $businessValue = floatval($valorLimpio);
+                    $valueSource = 'perfilContato.valorNegocioTotal';
+                    
+                } 
+                // Prioridad 2: Sumar todos los valores del array valNegocio
+                elseif (isset($webhookData['perfilContato']['valNegocio']) && is_array($webhookData['perfilContato']['valNegocio'])) {
+                    $totalValores = 0;
+                    foreach ($webhookData['perfilContato']['valNegocio'] as $negocio) {
+                        if (isset($negocio['valor'])) {
+                            $totalValores += floatval($negocio['valor']);
+                        }
+                    }
+                    $businessValue = $totalValores;
+                    $valueSource = 'perfilContato.valNegocio_array_sum';
+                }
+                // Prioridad 3: Campos genéricos de respaldo
+                elseif (isset($webhookData['value'])) {
+                    $businessValue = floatval($webhookData['value']);
+                    $valueSource = 'webhookData.value';
+                } elseif (isset($webhookData['amount'])) {
+                    $businessValue = floatval($webhookData['amount']);
+                    $valueSource = 'webhookData.amount';
+                }
+                
+                $processedData['value'] = $businessValue;
+                
+                // Log del valor extraído para debugging
+                $logEntry['business_value_extraction'] = [
+                    'extracted_value' => $businessValue,
+                    'value_source' => $valueSource,
+                    'raw_valor_total' => $webhookData['perfilContato']['valorNegocioTotal'] ?? 'not_found',
+                    'val_negocio_count' => isset($webhookData['perfilContato']['valNegocio']) ? count($webhookData['perfilContato']['valNegocio']) : 0,
+                    'has_perfil_contato' => isset($webhookData['perfilContato'])
+                ];
+                file_put_contents($logFile, "=== PURCHASE VALUE PROCESSED ===\n" . json_encode($logEntry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n\n", FILE_APPEND | LOCK_EX);
             }
+            
+            // Agregar moneda si está definida en el mapeo
             if (isset($eventMapping['currency'])) {
                 $processedData['currency'] = $eventMapping['currency'];
             }
