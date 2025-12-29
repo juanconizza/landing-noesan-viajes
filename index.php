@@ -54,7 +54,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">        
         <img src="assets/img/noesan-viajes-logo.webp" alt="NoeSan Viajes Logo " width="auto" height="36">        
       </a>
-      <a class="btn-getstarted" id="cupos-limitados-button" href="assets/conversions/meta-conversion.php">Cupos Limitados</a>
+      <a class="btn-getstarted" id="cupos-limitados-button" href="javascript:void(0)">Cupos Limitados</a>
 
     </div>
   </header>
@@ -83,8 +83,8 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
               <h1 class="hero-title">Desconectá.<br class="d-lg-none"> Descubrí. Conectá<br class="d-lg-none"> con vos misma.</h1>
               <p class="hero-subtitle">Un viaje exclusivo para mujeres. <span>Tercer edición.</span> Acompañado, seguro y diseñado para disfrutar sin límites.</p>
               <div class="hero-buttons">
-                <a href="assets/conversions/meta-conversion.php" class="btn btn-primary me-3" id="deseo-info-completa">Deseo Info Completa</a>
-                <a href="assets/conversions/meta-conversion.php" class="btn btn-outline" id="chatear-asesora">Chatear con una Asesora</a>
+                <a href="javascript:void(0)" class="btn btn-primary me-3" id="deseo-info-completa">Deseo Info Completa</a>
+                <a href="javascript:void(0)" class="btn btn-outline" id="chatear-asesora">Chatear con una Asesora</a>
               </div>
             </div>
           </div>            
@@ -496,8 +496,8 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
             <div class="col-lg-8 mx-auto text-center">
               <h2>Un viaje pensado por mujeres, para mujeres.</h2>              
               <div class="cta-buttons">
-                <a href="assets/conversions/meta-conversion.php" class="btn btn-outline" id="ver-itinerario-completo">Ver itinerario completo</a>
-                <a href="assets/conversions/meta-conversion.php" class="btn btn-primary" id="reservar-mi-lugar">¡Reservar mi lugar!</a>
+                <a href="javascript:void(0)" class="btn btn-outline" id="ver-itinerario-completo">Ver itinerario completo</a>
+                <a href="javascript:void(0)" class="btn btn-primary" id="reservar-mi-lugar">¡Reservar mi lugar!</a>
               </div>
             </div>
           </div>
@@ -583,7 +583,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
 
             <div class="action-section">
               <div class="main-actions">                
-                <a href="assets/conversions/meta-conversion.php" class="btn btn-deals" id="lo-quiero-deseo-mas-info">                  
+                <a href="javascript:void(0)" class="btn btn-deals" id="lo-quiero-deseo-mas-info">                  
                   Lo quiero! Deseo más info
                 </a>
               </div>
@@ -736,7 +736,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
           <div class="col-lg-8 mx-auto text-center">
             <h2>Este es tu momento. <br>Regalate esta experiencia única.</h2>              
             <div class="cta-buttons">
-              <a href="assets/conversions/meta-conversion.php" class="btn btn-primary" id="quiero-reservar-mi-lugar">¡Quiero reservar mi lugar!</a>                
+              <a href="javascript:void(0)" class="btn btn-primary" id="quiero-reservar-mi-lugar">¡Quiero reservar mi lugar!</a>                
             </div>
           </div>
             </div>
@@ -750,7 +750,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
     
     <!-- Whatsapp Button -->
      <a id="whatsapp-button" class="whatsapp-button"
-    href="assets/conversions/meta-conversion.php">
+    href="javascript:void(0)">
     <img src="assets/img/whatsapp-logo.svg" alt="WhatsApp" loading="lazy" width="60" height="60">
   </a>
 

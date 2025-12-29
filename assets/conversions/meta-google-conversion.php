@@ -149,8 +149,7 @@ function sendMetaConversion($pixelId, $accessToken, $ipAddress, $userAgent, $eve
                 'user_data' => $userData
             ]
         ],
-        'access_token' => $accessToken,
-        'test_event_code' => 'TEST77145'
+        'access_token' => $accessToken
     ];
     
     // Enviar con cURL

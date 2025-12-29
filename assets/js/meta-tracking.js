@@ -9,7 +9,7 @@ const MetaConversions = {
     // Configuración
     config: {
         pixelId: '2283474082174153',
-        endpointUrl: '/assets/conversions/meta-endpoint.php',
+        endpointUrl: '/miami-women-trip/assets/conversions/meta-google-conversion.php',  // Ruta completa considerando subdirectorio
         whatsappUrl: 'https://wa.me/5493516217424?text=' + encodeURIComponent('Hola! Quiero información del Miami Women Trip...'),
         debug: false
     },
@@ -128,7 +128,7 @@ const MetaConversions = {
         // Esperar un momento para asegurar que el tracking se complete
         setTimeout(() => {
             window.location.href = this.config.whatsappUrl;
-        }, 300);
+        }, 30000000);
     },
 
     /**
@@ -140,24 +140,32 @@ const MetaConversions = {
             console.log('Tracking params:', this.getTrackingParams());
         }
 
-        // Buscar todos los enlaces que apunten al PHP de conversión
-        const selectors = [
-            'a[href*="meta-conversion.php"]'
+        // Buscar todos los botones por ID específico (no por href)
+        const buttonIds = [
+            'cupos-limitados-button',
+            'deseo-info-completa',
+            'chatear-asesora',
+            'ver-itinerario-completo',
+            'reservar-mi-lugar',
+            'lo-quiero-deseo-mas-info',
+            'quiero-reservar-mi-lugar',
+            'whatsapp-button'
         ];
 
-        selectors.forEach(selector => {
-            const elements = document.querySelectorAll(selector);
-            elements.forEach(element => {
+        buttonIds.forEach(buttonId => {
+            const element = document.getElementById(buttonId);
+            if (element) {
                 // Prevenir el comportamiento por defecto
                 element.addEventListener('click', (e) => {
-                    const buttonId = element.id || element.getAttribute('href');
                     this.handleContactClick(e, buttonId);
                 });
 
                 if (this.config.debug) {
-                    console.log('Listener attached to:', selector);
+                    console.log('Listener attached to button:', buttonId);
                 }
-            });
+            } else if (this.config.debug) {
+                console.warn('Button not found:', buttonId);
+            }
         });
     }
 };
