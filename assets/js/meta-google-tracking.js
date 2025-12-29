@@ -1,7 +1,7 @@
 /**
- * Meta Conversions Tracker
+ * Meta and Google Conversions Tracker
  * 
- * Maneja el tracking de conversiones con Meta Pixel + CAPI
+ * Maneja el tracking de conversiones con Meta Pixel + CAPI y de Google Ads
  * siguiendo las mejores prácticas de atribución.
  */
 
@@ -9,6 +9,8 @@ const MetaConversions = {
     // Configuración
     config: {
         pixelId: '2283474082174153',
+        googleAdsConversionId: 'AW-17812013643',
+        googleAdsConversionLabel: 'YIefCISFs9kbEMuEt61C',
         endpointUrl: '/miami-women-trip/assets/conversions/meta-google-conversion.php',  // Ruta completa considerando subdirectorio
         whatsappUrl: 'https://wa.me/5493516217424?text=' + encodeURIComponent('Hola! Quiero información del Miami Women Trip...'),
         debug: false
@@ -83,7 +85,7 @@ const MetaConversions = {
     },
 
     /**
-     * Trackea el evento Contact con Pixel + CAPI
+     * Trackea el evento Contact con Pixel + CAPI + Google Ads
      */
     trackContact: async function(buttonId = null) {
         const eventId = this.generateEventId();
@@ -96,17 +98,30 @@ const MetaConversions = {
         // 1. Enviar a CAPI (backend)
         await this.sendToCAPI(eventId, eventSourceUrl);
 
-        // 2. Trackear con Pixel (deduplicado con mismo event_id)
+        // 2. Trackear con Meta Pixel (deduplicado con mismo event_id)
         if (typeof fbq !== 'undefined') {
             fbq('track', 'Contact', {}, {
                 eventID: eventId
             });
             
             if (this.config.debug) {
-                console.log('Pixel Contact tracked with eventID:', eventId);
+                console.log('Meta Pixel Contact tracked with eventID:', eventId);
             }
         } else {
             console.warn('Meta Pixel (fbq) not loaded');
+        }
+
+        // 3. Trackear con Google Ads
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'conversion', {
+                'send_to': this.config.googleAdsConversionId + '/' + this.config.googleAdsConversionLabel
+            });
+            
+            if (this.config.debug) {
+                console.log('Google Ads conversion tracked');
+            }
+        } else {
+            console.warn('Google gtag not loaded');
         }
 
         return eventId;
@@ -128,7 +143,7 @@ const MetaConversions = {
         // Esperar un momento para asegurar que el tracking se complete
         setTimeout(() => {
             window.location.href = this.config.whatsappUrl;
-        }, 30000000);
+        }, 300);
     },
 
     /**

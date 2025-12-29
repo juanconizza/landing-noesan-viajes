@@ -44,6 +44,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+ <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17812013643"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-17812013643'); </script>
 </head>
 
 <body class="index-page">
@@ -781,7 +782,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
   <script src="assets/js/main.js"></script>
 
   <!-- Meta Tracking JS -->
-  <script src="assets/js/meta-tracking.js"></script>
+  <script src="assets/js/meta-google-tracking.js"></script>
 
 </body>
 
