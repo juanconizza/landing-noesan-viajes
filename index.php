@@ -780,6 +780,9 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <!-- Meta Tracking JS -->
+  <script src="assets/js/meta-tracking.js"></script>
+
 </body>
 
 </html>
