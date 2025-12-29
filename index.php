@@ -15,14 +15,18 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
+  <!-- Preload Critical CSS -->
+  <link rel="preload" href="assets/vendor/bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="assets/css/main.css" as="style">
+  
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" media="print" onload="this.media='all'">
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet"> 
@@ -66,7 +70,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
     <section id="travel-hero" class="travel-hero section dark-background">
       <!-- Video Background -->
       <div class="hero-background">
-        <video autoplay="" muted="" loop="">
+        <video autoplay="" muted="" loop="" playsinline preload="metadata">
           <source src="assets/img/miami_005.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
@@ -76,7 +80,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
         <div class="row align-items-center">
           <div class="col-lg-6 order-lg-2">
             <div class="hero-image" data-aos="zoom-in" data-aos-delay="200">
-              <img src="assets/img/miami-women-trip-logo.webp" alt="Travel Hero Image" class="img-fluid rounded-4" width="500" height="400">
+              <img src="assets/img/miami-women-trip-logo.webp" alt="Travel Hero Image" class="img-fluid rounded-4" width="500" height="400" fetchpriority="high">
             </div>
           </div>
           <div class="col-lg-6 order-lg-1">
@@ -102,7 +106,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
         <!-- Hero Section -->
         <div class="destination-hero" data-aos="fade-up" data-aos-delay="100">
           <div class="hero-image">
-            <img src="assets/img/miami-women-trip_la-experiencia-que-te-mererces.webp" alt="Imagen mujeres en circulo en la playa" class="img-fluid" width="800" height="600">
+            <img src="assets/img/miami-women-trip_la-experiencia-que-te-mererces.webp" alt="Imagen mujeres en circulo en la playa" class="img-fluid" width="800" height="600" loading="lazy">
             <div class="hero-overlay">
               <div class="hero-content">
                 <h2>
@@ -177,7 +181,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
          <div class="gallery-container">
           <div class="video-testimonial" data-aos="fade-up" data-aos-delay="200">
             <a href="https://vimeo.com/1149023007?autoplay=1&playsinline=1" class="glightbox video-link" id="video-testimonios">              
-              <img src="assets/img/video-portada.jpg" alt="Video Testimonial" class="img-fluid rounded-4" width="600" height="400">
+              <img src="assets/img/video-portada.jpg" alt="Video Testimonial" class="img-fluid rounded-4" width="600" height="400" loading="lazy">
             </a>
           </div>
          </div>
@@ -232,7 +236,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="gallery-item">
                   <div class="gallery-img">
                     <a class="glightbox" data-gallery="images-gallery" href="assets/img/miami-women-trip_galeria-01.webp">
-                      <img src="assets/img/miami-women-trip_galeria-01.webp" class="img-fluid" alt="" width="400" height="300">
+                      <img src="assets/img/miami-women-trip_galeria-01.webp" class="img-fluid" alt="" width="400" height="300" loading="lazy">
                     </a>
                   </div>
                 </div>
@@ -241,7 +245,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="gallery-item">
                   <div class="gallery-img">
                     <a class="glightbox" data-gallery="images-gallery" href="assets/img/miami-women-trip_galeria-02.webp">
-                      <img src="assets/img/miami-women-trip_galeria-02.webp" class="img-fluid" alt="" width="400" height="300">
+                      <img src="assets/img/miami-women-trip_galeria-02.webp" class="img-fluid" alt="" width="400" height="300" loading="lazy">
                     </a>
                   </div>
                 </div>
@@ -250,7 +254,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="gallery-item">
                   <div class="gallery-img">
                     <a class="glightbox" data-gallery="images-gallery" href="assets/img/miami-women-trip_galeria-03.webp">
-                      <img src="assets/img/miami-women-trip_galeria-03.webp" class="img-fluid" alt="" width="400" height="300">
+                      <img src="assets/img/miami-women-trip_galeria-03.webp" class="img-fluid" alt="" width="400" height="300" loading="lazy">
                     </a>
                   </div>
                 </div>
@@ -259,7 +263,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="gallery-item">
                   <div class="gallery-img">
                     <a class="glightbox" data-gallery="images-gallery" href="assets/img/miami-women-trip_galeria-04.webp">
-                      <img src="assets/img/miami-women-trip_galeria-04.webp" class="img-fluid" alt="" width="400" height="300">
+                      <img src="assets/img/miami-women-trip_galeria-04.webp" class="img-fluid" alt="" width="400" height="300" loading="lazy">
                     </a>
                   </div>
                 </div>
@@ -268,7 +272,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="gallery-item">
                   <div class="gallery-img">
                     <a class="glightbox" data-gallery="images-gallery" href="assets/img/miami-women-trip_galeria-05.webp">
-                      <img src="assets/img/miami-women-trip_galeria-05.webp" class="img-fluid" alt="" width="400" height="300">
+                      <img src="assets/img/miami-women-trip_galeria-05.webp" class="img-fluid" alt="" width="400" height="300" loading="lazy">
                     </a>
                   </div>
                 </div>
@@ -277,7 +281,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="gallery-item">
                   <div class="gallery-img">
                     <a class="glightbox" data-gallery="images-gallery" href="assets/img/miami-women-trip_galeria-06.webp">
-                      <img src="assets/img/miami-women-trip_galeria-06.webp" class="img-fluid" alt="" width="400" height="300">
+                      <img src="assets/img/miami-women-trip_galeria-06.webp" class="img-fluid" alt="" width="400" height="300" loading="lazy">
                     </a>
                   </div>
                 </div>
@@ -286,7 +290,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="gallery-item">
                   <div class="gallery-img">
                     <a class="glightbox" data-gallery="images-gallery" href="assets/img/miami-women-trip_galeria-07.webp">
-                      <img src="assets/img/miami-women-trip_galeria-07.webp" class="img-fluid" alt="" width="400" height="300">
+                      <img src="assets/img/miami-women-trip_galeria-07.webp" class="img-fluid" alt="" width="400" height="300" loading="lazy">
                     </a>
                   </div>
                 </div>
@@ -295,7 +299,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="gallery-item">
                   <div class="gallery-img">
                     <a class="glightbox" data-gallery="images-gallery" href="assets/img/miami-women-trip_galeria-08.webp">
-                      <img src="assets/img/miami-women-trip_galeria-08.webp" class="img-fluid" alt="" width="400" height="300">
+                      <img src="assets/img/miami-women-trip_galeria-08.webp" class="img-fluid" alt="" width="400" height="300" loading="lazy">
                     </a>
                   </div>
                 </div>
@@ -357,7 +361,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
         <div class="align-items-center">          
           <div class="about-image-container" data-aos="fade-left" data-aos-delay="300">
             <div class="about-image">
-              <img src="assets/img/miami-women-trip_galeria-05.webp" alt="Mujeres en la playa" class="img-fluid rounded-4" width="600" height="450">
+              <img src="assets/img/miami-women-trip_galeria-05.webp" alt="Mujeres en la playa" class="img-fluid rounded-4" width="600" height="450" loading="lazy">
               <div class="experience-badge">
                 <div class="experience-number">7 días</div>                
               </div>
@@ -516,7 +520,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
         <!-- Hero Section -->
         <div class="destination-hero" data-aos="fade-up" data-aos-delay="100">
           <div class="hero-image">
-            <img src="assets/img/miami-women-trip_precio.webp" alt="Imagen mujeres en la playa" class="img-fluid" width="800" height="600">
+            <img src="assets/img/miami-women-trip_precio.webp" alt="Imagen mujeres en la playa" class="img-fluid" width="800" height="600" loading="lazy">
             <div class="hero-overlay">
               <div class="hero-content">
                 <h2>UN SUEÑO<span class="d-block d-lg-none"><br></span> A TU ALCANCE</h2>
@@ -730,7 +734,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
       <!-- Call to Action Section with Background Image -->
       <div class="cta-section" data-aos="fade-up" data-aos-delay="800">
         <div class="hero-image"></div>
-        <img src="assets/img/miami-women-trip-logo.webp" alt="Miami Women Trip CTA Background" class="img-fluid" width="600" height="400">
+        <img src="assets/img/miami-women-trip-logo.webp" alt="Miami Women Trip CTA Background" class="img-fluid" width="600" height="400" loading="lazy">
         <div class="hero-overlay">
           <div class="hero-content">
             <div class="row">
@@ -769,20 +773,20 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/vendor/php-email-form/validate.js" defer></script>
+  <script src="assets/vendor/aos/aos.js" defer></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js" defer></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js" defer></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js" defer></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js" defer></script>
 
   <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js" defer></script>
 
   <!-- Meta Tracking JS -->
-  <script src="assets/js/meta-google-tracking.js"></script>
+  <script src="assets/js/meta-google-tracking.js" defer></script>
 
 </body>
 
