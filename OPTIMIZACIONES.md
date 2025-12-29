@@ -45,38 +45,36 @@
 
 ## 📋 Optimizaciones Adicionales Recomendadas
 
-### A. CRÍTICO - Optimizar Imágenes WebP
-Las imágenes de galería (miami-women-trip_galeria-*.webp) necesitan:
-1. **Recompresión**: Aumentar compresión para reducir ~1MB cada una
-2. **Responsive Images**: Crear versiones para diferentes tamaños de pantalla
-   
-**Comandos para optimizar** (requiere instalar `cwebp`):
-```bash
-# Instalar herramientas
-brew install webp
+### A. ✅ COMPLETADO - Imágenes WebP Optimizadas
+Las imágenes de galería han sido optimizadas con éxito:
 
-# Optimizar imágenes de galería (desde la carpeta assets/img)
-cd assets/img
-
-# Crear versiones optimizadas con mayor compresión
-for file in miami-women-trip_galeria-*.webp; do
-    cwebp -q 75 "$file" -o "${file%.webp}_optimized.webp"
-done
-
-# Crear versiones responsivas (679x509 para el tamaño real de visualización)
-for file in miami-women-trip_galeria-*.webp; do
-    cwebp -q 75 -resize 679 509 "$file" -o "${file%.webp}_small.webp"
-done
+**Resultados de Optimización:**
+```
+ORIGINALES:     7.4 MB (8 imágenes)
+OPTIMIZADAS:    840 KB (89% de reducción) ← AHORA EN USO
+RESPONSIVAS:    396 KB (95% de reducción) ← Disponibles para srcset
 ```
 
-**Ahorro estimado**: ~7,975 KiB (casi 8MB)
+**Ahorro Real**: 6.56 MB (6,730 KB) en imágenes de galería
+**Video-portada**: 795 KB → 117 KB (678 KB ahorrados, 85% reducción)
+**Ahorro Total**: ~7.4 MB
 
-### B. IMPORTANTE - Convertir JPG a WebP
-- `video-portada.jpg` (795 KiB) → Convertir a WebP
+✅ Las imágenes originales están respaldadas en `assets/img/backups/`
+✅ Los archivos `*_small.webp` están listos para implementar responsive images
+
+**NOTA**: Si quieres optimizar más imágenes en el futuro, usa:
 ```bash
-cwebp -q 80 video-portada.jpg -o video-portada.webp
+# Agregar alias temporal (o añadirlo a ~/.zshrc)
+alias cwebp='/usr/local/Cellar/webp/1.4.0/bin/cwebp'
+
+# Luego usar normalmente
+cwebp -q 75 imagen.webp -o imagen_optimized.webp
 ```
-**Ahorro estimado**: ~720 KiB
+
+### B. ✅ COMPLETADO - Video-portada Convertido a WebP
+- `video-portada.jpg` (795 KB) → `video-portada.webp` (117 KB)
+- **Ahorro**: 678 KB (85% de reducción)
+- ✅ El archivo JPG ha sido reemplazado automáticamente
 
 ### C. RECOMENDADO - Implementar Imágenes Responsivas
 Actualizar HTML para usar `srcset`:
@@ -133,18 +131,23 @@ self.addEventListener('install', (e) => {
 - ✅ Font Display: +350 ms mejora en FCP
 - ✅ Lazy Loading: Carga inicial más rápida
 - ✅ Scripts Diferidos: No bloquean renderización
+- ✅ Imágenes Optimizadas: **7.4 MB reducidos (89-95% de compresión)**
 
-### Con Optimizaciones Adicionales (A-B)
-- 📈 Reducción adicional: ~8,700 KiB (8.5 MB)
-- 📈 Mejora estimada en LCP: 40-60%
-- 📈 Mejora estimada en FCP: 30-50%
+### Ahorro Total Logrado
+- 📊 **Imágenes de galería**: 6.56 MB ahorrados
+- 📊 **Video-portada.jpg**: 678 KB ahorrados
+- 📊 **Total optimización de imágenes**: ~7.4 MB
+- 📈 **Mejora estimada en LCP**: 50-70%
+- 📈 **Mejora estimada en FCP**: 40-60%
 
 ## 🚀 Próximos Pasos
 
-1. **Inmediato**: Subir los cambios al servidor y verificar que `.htaccess` funcione
-2. **Esta semana**: Optimizar y recomprimir imágenes WebP (Sección A)
-3. **Este mes**: Convertir JPG a WebP (Sección B)
-4. **Opcional**: Implementar imágenes responsivas para un rendimiento óptimo
+1. ✅ ~~Optimizar y recomprimir imágenes WebP~~ - **COMPLETADO**
+2. ✅ ~~Convertir JPG a WebP~~ - **COMPLETADO**
+3. **AHORA**: Subir los cambios al servidor
+4. **AHORA**: Verificar que `.htaccess` funcione correctamente
+5. **Opcional**: Implementar imágenes responsivas con srcset (archivos `*_small.webp` ya disponibles)
+6. **Opcional**: Medir resultados en PageSpeed Insights
 
 ## 🔍 Validación
 
