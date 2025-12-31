@@ -141,7 +141,7 @@
         hideControls: true,
         resetOnEnd: true,
         autoplay: true,
-        muted: true,
+        muted: false,
         playsinline: true
       }
     },
@@ -165,7 +165,6 @@
           }
           // For direct video elements
           else if (video.tagName === 'VIDEO') {
-            video.muted = true;
             video.play().catch(e => console.log('Autoplay prevented by browser'));
           }
         }
