@@ -56,7 +56,7 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">        
+      <a href="index.php" class="logo d-flex align-items-center me-auto me-xl-0">        
         <img src="assets/img/noesan-viajes-logo.webp" alt="NoeSan Viajes Logo " width="auto" height="36">        
       </a>
       <a class="btn-getstarted" id="cupos-limitados-button" href="javascript:void(0)">Cupos Limitados</a>
