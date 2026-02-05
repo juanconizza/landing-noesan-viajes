@@ -557,8 +557,8 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 </div>
                 <div class="col-lg-4">
                   <div class="price-type">
-                    <h4>+ 4 Cuotas de</h4>
-                    <div class="price">U$D 522</div>                    
+                    <h4>+ 3 Cuotas de</h4>
+                    <div class="price">U$D 697</div>                    
                   </div>
                 </div>
                 <div class="col-lg-4">
