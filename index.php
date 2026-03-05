@@ -552,13 +552,13 @@ src="https://www.facebook.com/tr?id=2283474082174153&ev=PageView&noscript=1"
                 <div class="col-lg-4">
                   <div class="price-type">
                     <h4>Seña</h4>
-                    <div class="price">U$D 900</div>                    
+                    <div class="price">U$D 990</div>                    
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="price-type">
-                    <h4>+ 3 Cuotas de</h4>
-                    <div class="price">U$D 697</div>                    
+                    <h4>+ 2 Cuotas de</h4>
+                    <div class="price">U$D 999</div>                    
                   </div>
                 </div>
                 <div class="col-lg-4">
